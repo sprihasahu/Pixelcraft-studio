@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Creator | Create Beautiful Pixel Art Online</title>
+    <link rel="stylesheet" href="Style/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🎨</div>
+                <h1>Pixel Art Creator</h1>
+            </div>
+            <p class="tagline">Transform your images into beautiful pixel art or create from scratch with our intuitive online tool</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🖌️</div>
+                    <h3>Draw</h3>
+                    <p>Create pixel art from scratch</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Convert</h3>
+                    <p>Transform images to pixel art</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📐</div>
+                    <h3>Aspect Ratio</h3>
+                    <p>Maintain original proportions</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💾</div>
+                    <h3>Export</h3>
+                    <p>Save your artwork as PNG</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="panel tools-panel">
+                <h2 class="section-title"><i>🛠️</i> Tools & Colors</h2>
+                
+                <div class="current-color">
+                    <span>Current Color:</span>
+                    <div class="color-preview" id="currentColor"></div>
+                </div>
+                
+                <h3 class="section-title"><i>🎨</i> Color Palette</h3>
+                <div class="color-palette" id="colorPalette">
+                    <!-- Colors will be added by JavaScript -->
+                </div>
+                
+                <h3 class="section-title"><i>✏️</i> Drawing Tools</h3>
+                <div class="tool-buttons">
+                    <button class="tool-btn active" id="pencilTool"><i>✏️</i> Pencil</button>
+                    <button class="tool-btn" id="eraserTool"><i>🧽</i> Eraser</button>
+                    <button class="tool-btn" id="fillTool"><i>🪣</i> Fill</button>
+                    <button class="tool-btn" id="colorPickerTool"><i>🎯</i> Color Picker</button>
+                </div>
+                
+                <h3 class="section-title"><i>⚙️</i> Canvas Settings</h3>
+                <div class="selectors">
+                    <div class="input-group">
+                        <label for="gridWidth">
+                            Grid Width: <span id="gridWidthValue">32</span>
+                        </label>
+                        <input type="range" id="gridWidth" min="16" max="64" value="32">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="gridHeight">
+                            Grid Height: <span id="gridHeightValue">32</span>
+                        </label>
+                        <input type="range" id="gridHeight" min="16" max="64" value="32">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="pixelSize">
+                            Pixel Size: <span id="pixelSizeValue">20px</span>
+                        </label>
+                        <input type="range" id="pixelSize" min="10" max="40" value="20">
+                    </div>
+                </div>
+                
+                <div class="aspect-ratio-controls">
+                    <h4>Aspect Ratio</h4>
+                    <div class="ratio-buttons">
+                        <button class="ratio-btn" data-ratio="1:1">Square (1:1)</button>
+                        <button class="ratio-btn" data-ratio="4:3">Standard (4:3)</button>
+                        <button class="ratio-btn" data-ratio="16:9">Widescreen (16:9)</button>
+                        <button class="ratio-btn" data-ratio="9:16">Portrait (9:16)</button>
+                        <button class="ratio-btn active" data-ratio="custom">Custom</button>
+                    </div>
+                </div>
+                
+                <div class="canvas-controls">
+                    <button class="btn clear" id="clearCanvas"><i>🗑️</i> Clear Canvas</button>
+                    <button class="btn save" id="saveCanvas"><i>💾</i> Save Image</button>
+                </div>
+            </div>
+            
+            <div class="panel canvas-container">
+                <h2 class="section-title"><i>🖼️</i> Pixel Canvas</h2>
+                <div class="canvas-wrapper">
+                    <canvas id="pixelCanvas"></canvas>
+                </div>
+                <p class="canvas-info">Click and drag to draw. Use the tools and colors from the panel.</p>
+                <p class="canvas-info" id="canvasDimensions">Canvas Size: 32 × 32 pixels</p>
+            </div>
+            
+            <div class="panel reference-container">
+                <h2 class="section-title"><i>🔄</i> Image Conversion</h2>
+                
+                <div class="drop-zone" id="dropZone">
+                    <div class="icon">📁</div>
+                    <p>Drag & Drop an image here</p>
+                    <p>or</p>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none">
+                    <button class="btn" id="uploadBtn"><i>📂</i> Browse Files</button>
+                </div>
+                
+                <img id="referenceImage" alt="Reference image">
+                
+                <div class="reference-controls">
+                    <button class="btn remove" id="removeImage"><i>❌</i> Remove Image</button>
+                    <button class="btn convert" id="convertImage"><i>✨</i> Convert to Pixel Art</button>
+                </div>
+                
+                <div class="conversion-controls">
+                    <h3 class="section-title"><i>🎛️</i> Conversion Settings</h3>
+                    
+                    <div class="input-group">
+                        <label for="scale">
+                            Scale: <span id="scaleValue">8</span>
+                        </label>
+                        <input type="range" id="scale" min="2" max="20" value="8">
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="maintainAspectRatio" checked>
+                        <label for="maintainAspectRatio">Maintain Aspect Ratio</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="greyscale">
+                        <label for="greyscale">Convert to Grayscale</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="usePalette">
+                        <label for="usePalette">Use Color Palette</label>
+                    </div>
+                    
+                    <div class="palette-selector">
+                        <label for="paletteSelect">Select Palette:</label>
+                        <select id="paletteSelect">
+                            <option value="default">Default Palette</option>
+                            <option value="4color">4-Color Palette</option>
+                            <option value="16color">16-Color Palette</option>
+                            <option value="custom">Custom Palette</option>
+                        </select>
+                    </div>
+                    
+                    <div class="custom-palette-controls" id="customPaletteControls" style="display: none;">
+                        <h4>Custom Palette</h4>
+                        <div class="custom-palette-colors" id="customPaletteColors">
+                            <!-- Custom colors will be added here -->
+                        </div>
+                        <div class="color-controls">
+                            <input type="color" id="customColorPicker" value="#FF5733">
+                            <button class="btn" id="addCustomColor"><i>➕</i> Add Color</button>
+                        </div>
+                        <button class="btn" id="saveCustomPalette" style="margin-top: 10px;"><i>💾</i> Save Custom Palette</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Create amazing pixel art with our easy-to-use online tool</p>
+            
+            <div class="copyright">
+                &copy; 2025 Pixel Art Creator. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <script src="Script/scripts.js">
+        
+    </script>
+</body>
+</html>
